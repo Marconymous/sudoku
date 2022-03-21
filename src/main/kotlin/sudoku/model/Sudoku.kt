@@ -1,5 +1,7 @@
 package sudoku.model
 
+import sudoku.solver.SudokuSolver
+
 class Sudoku(val board: Array<Int>) {
     fun print() {
         for (i in 0..8) {
@@ -18,6 +20,10 @@ class Sudoku(val board: Array<Int>) {
 
     operator fun get(it: Int): Int {
         return board[it]
+    }
+
+    fun isValid(): Boolean {
+        TODO("isValid not implemented")
     }
 
     init {

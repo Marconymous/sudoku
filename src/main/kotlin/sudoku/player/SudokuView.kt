@@ -12,6 +12,8 @@ import javax.swing.JOptionPane
 import javax.swing.JPanel
 
 class SudokuView(private var sudoku: Sudoku) : JPanel(){
+    var animationDelay: Int = 10
+
     // The Buttons where the Sudoku Numbers will be written
     private val buttons: Array<JButton>
 
@@ -62,7 +64,7 @@ class SudokuView(private var sudoku: Sudoku) : JPanel(){
             val animateSolution =
                 JOptionPane.showConfirmDialog(null, "Animate solution?", "Animate solution", JOptionPane.YES_NO_OPTION)
             if (animateSolution == JOptionPane.YES_OPTION) {
-                val runnable = SudokuStepVisualizer(solved, buttons, solveButton)
+                val runnable = SudokuStepVisualizer(solved, buttons, solveButton, animationDelay)
                 Thread(runnable).start()
                 return
             }

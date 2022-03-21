@@ -12,7 +12,7 @@ import javax.swing.*
  * @version 1.0.0
  * @since 1.0.0
  */
-class SudokuRunner(private var sudoku: Sudoku) : JFrame() {
+class SudokuRunner(sudoku: Sudoku) : JFrame() {
     private val tabPane = JTabbedPane()
 
     init {
@@ -20,16 +20,19 @@ class SudokuRunner(private var sudoku: Sudoku) : JFrame() {
         defaultCloseOperation = EXIT_ON_CLOSE
 
         val sudokuView = SudokuView(sudoku)
-        val settingsView = SettingsView(sudokuView)
+        val settingsView = SettingsView(sudokuView, this)
         val customInput = CustomInputView(sudokuView)
+        val customPlayer = CustomSudokuPlayer()
 
         tabPane.addTab("Solver", sudokuView)
-        tabPane.addTab("Settings", settingsView)
         tabPane.addTab("Custom", customInput)
+        tabPane.addTab("Play", customPlayer)
+        tabPane.addTab("Settings", settingsView)
 
         add(tabPane)
 
-        size = Dimension(450, 500)
+        size = Dimension(450, 510)
+        isResizable = false
         isVisible = true
     }
 }
@@ -41,7 +44,6 @@ fun main(args: Array<String>) {
     println("Applied theme: $appliedTheme")
 
     SudokuRunner(getDefaultSudoku())
-
 }
 
 fun getDefaultSudoku(): Sudoku {

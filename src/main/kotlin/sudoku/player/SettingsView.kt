@@ -8,7 +8,7 @@ import javax.swing.JButton
 import javax.swing.JOptionPane
 import javax.swing.JPanel
 
-class SettingsView(private val sudokuView: SudokuView) : JPanel() {
+class SettingsView(private val sudokuView: SudokuView, mainWindow: SudokuRunner) : JPanel() {
 
     // The Button to generate a random Sudoku
     private val randomButton = JButton("Random")
@@ -35,5 +35,12 @@ class SettingsView(private val sudokuView: SudokuView) : JPanel() {
             newTheme.theme?.let { it1 -> ThemeUpdater.updateTheme(it1) }
         }
         add(themeSelector)
+
+        val openConfigurationButton = JButton("Open Configuration")
+        openConfigurationButton.addActionListener {
+            val configurationView = ConfigurationDialog(mainWindow, sudokuView)
+        }
+        add(openConfigurationButton)
+
     }
 }
