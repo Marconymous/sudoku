@@ -18,7 +18,7 @@ class ConfigurationDialog(parent: JFrame, private val sudokuView: SudokuView) : 
 
     private fun initComponents() {
         val panel = JPanel()
-        panel.layout = GridLayout(2, 1)
+        panel.layout = GridLayout(1, 2)
 
         val label  = JLabel("Animation Frame Delay")
         val delay = SpinnerNumberModel(1, 0, 100, 1)
@@ -46,5 +46,7 @@ class ConfigurationDialog(parent: JFrame, private val sudokuView: SudokuView) : 
 
         add(panel, BorderLayout.CENTER)
         add(buttonPanel, BorderLayout.SOUTH)
+
+        size = Dimension(350, 100)
     }
 }

@@ -59,7 +59,12 @@ class SudokuView(private var sudoku: Sudoku) : JPanel(){
 
     private fun showSolutionDialog(solved: Solution) {
         val showSolution =
-            JOptionPane.showConfirmDialog(null, "Show solution?", "Show solution", JOptionPane.YES_NO_OPTION)
+            JOptionPane.showConfirmDialog(null,
+                "Solved in ${solved.stats.time}ms\nBacktracks: ${solved.stats.changes}\n\nShow solution?",
+                "Show solution",
+                JOptionPane.YES_NO_OPTION
+            )
+
         if (showSolution == JOptionPane.YES_OPTION) {
             val animateSolution =
                 JOptionPane.showConfirmDialog(null, "Animate solution?", "Animate solution", JOptionPane.YES_NO_OPTION)

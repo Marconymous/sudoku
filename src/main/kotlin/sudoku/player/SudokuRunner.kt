@@ -21,8 +21,8 @@ class SudokuRunner(sudoku: Sudoku) : JFrame() {
 
         val sudokuView = SudokuView(sudoku)
         val settingsView = SettingsView(sudokuView, this)
-        val customInput = CustomInputView(sudokuView)
         val customPlayer = CustomSudokuPlayer()
+        val customInput = CustomInputView(sudokuView, customPlayer)
 
         tabPane.addTab("Solver", sudokuView)
         tabPane.addTab("Custom", customInput)

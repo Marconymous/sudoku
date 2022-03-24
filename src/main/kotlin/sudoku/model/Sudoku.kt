@@ -22,8 +22,20 @@ class Sudoku(val board: Array<Int>) {
         return board[it]
     }
 
-    fun isValid(): Boolean {
-        TODO("isValid not implemented")
+    fun isValid(ignoreZeros: Boolean = true): Pair<Boolean, Int> {
+        for ((index, i) in board.withIndex()) {
+            if (board[index] == 0 && !ignoreZeros) continue
+            board[index] = 0
+            val validPos = SudokuSolver.canBePlacedAt(board, index, i)
+            board[index] = i
+
+            if (!validPos) {
+                println("Not valid on $index with $i")
+                return Pair(false,  index)
+            }
+        }
+
+        return Pair(true, -1)
     }
 
     init {

@@ -1,77 +1,44 @@
 package sudoku.player
 
-import sudoku.model.Sudoku
-import sudoku.solver.SudokuSolver
+import sudoku.utils.ComponentFactory
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.GridLayout
-import java.awt.event.KeyAdapter
-import java.awt.event.KeyEvent
 import javax.swing.JButton
 import javax.swing.JPanel
 import javax.swing.JTextField
 
-class CustomInputView(root: SudokuView) : JPanel() {
+class CustomInputView(root: SudokuView, player: CustomSudokuPlayer) : JPanel() {
+    private val inputFields: Array<JTextField>
+
     init {
         layout = BorderLayout()
 
         val inputPanel = JPanel(BorderLayout())
 
-        val inputFieldPanel = JPanel(GridLayout(9, 9))
-        val inputFields = Array(81) { JTextField() }
-        for (i in 0..80) {
-            val input = inputFields[i]
-            input.addKeyListener(object : KeyAdapter() {
-                override fun keyTyped(e: KeyEvent) {
-                    val c = e.keyChar
-
-                    if (!Character.isDigit(c)) {
-                        e.consume()
-                        return
-                    }
-
-                    val num = c.toString().let { if (it == "") return@let "0"; return@let it }.toInt()
-
-                    val tempArr = inputFields.map { it.text }.map { if (it.trim() == "") return@map 0; return@map it.toInt() }.toTypedArray()
-
-                    if (!SudokuSolver.canBePlacedAt(tempArr, i, num)) {
-                        e.consume()
-                    }
-                }
-
-                override fun keyReleased(e: KeyEvent) {
-                    val text = input.text
-                    if (text.length > 1) {
-                        input.text = text.substring(text.length - 1)
-                    }
-
-                    val num = text.let { if (it == "") return@let 0; return@let it.toInt() }
-                    if (num < 1 || num > 9) {
-                        input.text = ""
-                    }
-                }
-            })
-
-            inputFields[i].horizontalAlignment = JTextField.CENTER
-
-            inputFieldPanel.add(input)
-        }
+        val inputFieldPanel = ComponentFactory.generateInputPanel()
+        inputFields = inputFieldPanel.inputs
 
         inputPanel.add(inputFieldPanel, BorderLayout.CENTER)
 
-        val sendToSolverButton = JButton("Send to Solver")
+        val buttonPanel = JPanel(GridLayout(1, 2))
+        val sendToSolverButton = JButton("Use")
         sendToSolverButton.addActionListener {
-            val tempArr = inputFields.map {
-                it.text.let { int ->
-                    if (int == "") return@let 0
-                    return@let int.toInt()
-                }
-            }.toTypedArray()
+            val s = inputFieldPanel.sudoku
 
-            root.setSudoku(Sudoku(tempArr))
+            root.setSudoku(s)
+            player.setSudoku(s)
         }
 
-        inputPanel.add(sendToSolverButton, BorderLayout.SOUTH)
+        val reset = JButton("Reset")
+        reset.addActionListener {
+            inputFields
+        }
+
+        buttonPanel.add(sendToSolverButton)
+        buttonPanel.add(reset)
+
+        inputPanel.add(buttonPanel, BorderLayout.SOUTH)
 
         add(inputPanel, BorderLayout.CENTER)
 

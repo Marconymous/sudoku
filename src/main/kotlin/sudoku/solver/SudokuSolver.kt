@@ -6,9 +6,6 @@ import sudoku.model.Sudoku
 import java.util.*
 import javax.swing.JButton
 
-
-
-
 object SudokuSolver {
     fun solve(sudoku: Sudoku): Solution {
         val board = sudoku.board.copyOf()
