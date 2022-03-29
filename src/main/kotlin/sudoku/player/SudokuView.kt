@@ -1,5 +1,6 @@
 package sudoku.player
 
+import sudoku.lang.UIText
 import sudoku.model.Solution
 import sudoku.model.Sudoku
 import sudoku.solver.SudokuSolver
@@ -18,7 +19,7 @@ class SudokuView(private var sudoku: Sudoku) : JPanel(){
     private val buttons: Array<JButton>
 
     // The Button to solve the Sudoku
-    private val solveButton = JButton("Solve")
+    private val solveButton = JButton(UIText["SOLVER_SOLVE_BUTTON_NAME"])
 
     init {
         setSize(800, 600)

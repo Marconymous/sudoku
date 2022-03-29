@@ -1,5 +1,6 @@
 package sudoku.player
 
+import sudoku.lang.UIText
 import sudoku.utils.ComponentFactory
 import java.awt.BorderLayout
 import java.awt.Dimension
@@ -22,7 +23,7 @@ class CustomInputView(root: SudokuView, player: CustomSudokuPlayer) : JPanel() {
         inputPanel.add(inputFieldPanel, BorderLayout.CENTER)
 
         val buttonPanel = JPanel(GridLayout(1, 2))
-        val sendToSolverButton = JButton("Use")
+        val sendToSolverButton = JButton(UIText["CUSTOM_USE_BUTTON_NAME"])
         sendToSolverButton.addActionListener {
             val s = inputFieldPanel.sudoku
 
@@ -30,7 +31,7 @@ class CustomInputView(root: SudokuView, player: CustomSudokuPlayer) : JPanel() {
             player.setSudoku(s)
         }
 
-        val reset = JButton("Reset")
+        val reset = JButton(UIText["CUSTOM_RESET_BUTTON_NAME"])
         reset.addActionListener {
             inputFields
         }

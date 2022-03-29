@@ -1,5 +1,7 @@
 package sudoku.player
 
+import sudoku.lang.UIText
+import sudoku.lang.UIText.*
 import sudoku.model.Sudoku
 import sudoku.utils.Theme
 import sudoku.utils.argparser.ArgParser
@@ -16,7 +18,7 @@ class SudokuRunner(sudoku: Sudoku) : JFrame() {
     private val tabPane = JTabbedPane()
 
     init {
-        title = "Sudoku Solver"
+        title = WINDOW_TITLE.get()
         defaultCloseOperation = EXIT_ON_CLOSE
 
         val sudokuView = SudokuView(sudoku)
@@ -24,10 +26,10 @@ class SudokuRunner(sudoku: Sudoku) : JFrame() {
         val customPlayer = CustomSudokuPlayer()
         val customInput = CustomInputView(sudokuView, customPlayer)
 
-        tabPane.addTab("Solver", sudokuView)
-        tabPane.addTab("Custom", customInput)
-        tabPane.addTab("Play", customPlayer)
-        tabPane.addTab("Settings", settingsView)
+        tabPane.addTab(UIText["SOLVER_TAB_NAME"], sudokuView)
+        tabPane.addTab(UIText["CUSTOM_TAB_NAME"], customInput)
+        tabPane.addTab(UIText["PLAY_TAB_NAME"], customPlayer)
+        tabPane.addTab(UIText["SETTINGS_TAB_NAME"], settingsView)
 
         add(tabPane)
 

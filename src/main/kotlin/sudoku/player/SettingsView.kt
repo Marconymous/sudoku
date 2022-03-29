@@ -1,5 +1,6 @@
 package sudoku.player
 
+import sudoku.lang.UIText
 import sudoku.solver.SudokuGenerator
 import sudoku.utils.Theme
 import sudoku.utils.ThemeUpdater
@@ -11,9 +12,9 @@ import javax.swing.JPanel
 class SettingsView(private val sudokuView: SudokuView, mainWindow: SudokuRunner) : JPanel() {
 
     // The Button to generate a random Sudoku
-    private val randomButton = JButton("Random")
+    private val randomButton = JButton(UIText["SETTINGS_RANDOM_BUTTON_NAME"])
 
-    private val themeSelector = JButton("Select Theme")
+    private val themeSelector = JButton(UIText["SETTINGS_SELECT_THEME_BUTTON_NAME"])
 
     init {
         layout = GridLayout(3, 0)
@@ -36,7 +37,7 @@ class SettingsView(private val sudokuView: SudokuView, mainWindow: SudokuRunner)
         }
         add(themeSelector)
 
-        val openConfigurationButton = JButton("Open Configuration")
+        val openConfigurationButton = JButton(UIText["SETTINGS_OPEN_CONFIG_BUTTON_NAME"])
         openConfigurationButton.addActionListener {
             val configurationView = ConfigurationDialog(mainWindow, sudokuView)
         }
